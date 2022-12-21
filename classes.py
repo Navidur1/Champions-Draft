@@ -1,9 +1,27 @@
 NUM_WEEKS = 8
+
+#SCORE CONSTANTS
+KILLS_SCORE = 3
+DEATHS_SCORE = -1
+ASSISTS_SCORE = 2
+CS_SCORE = 0.02
+FIRST_BLOODS_SCORE = 2
+TRIPLES_SCORE = 2
+QUADRAS_SCORE = 4
+PENTAS_SCORE = 7
+
 class Player:
   def __init__(self, name, team=None):
     self.name = name
     self.team = team
-    self.point = [None] * NUM_WEEKS
+    self.scores = [None] * (NUM_WEEKS + 1)
+
+  def __str__(self):
+    return (f"Name: {self.name}\n"
+            f"Team: {self.team}\n"
+            f"{self.scores[8]}")
+
+
 
 class Users:
   def __init__(self, name):
@@ -16,11 +34,14 @@ class Users:
     self.bench1 = None
     self.bench2 = None
 
+    self.schedule = [None] * 8
     self.wins = 0
     self.losses = 0
 
     self.points_for = 0
     self.points_against = 0
+
+
     
 class Team:
   def __init__(self, name, top=None, jg=None, mid=None, adc=None, supp=None):
@@ -30,6 +51,8 @@ class Team:
     self.mid = mid
     self.adc = adc
     self.supp = supp
+
+
 
 class Score:
   def __init__(self):
@@ -42,17 +65,34 @@ class Score:
     self.pentas = 0
     self.cs = 0
     self.total = 0
+    self.games = 0
     
-  def update(self, kills, deaths, assists, first_bloods, triples, quadras, pentas, cs):
-    self.kills += kills
-    self.deaths += deaths
-    self.assists += assists
-    self.first_bloods += first_bloods
-    self.triples += triples
-    self.quadras += quadras
-    self.pentas += pentas
-    self.cs += cs
-    self.total = self.kills + self.deaths + self.assists + self.first_bloods + self.triples +                        self.quadras + self.pentas + self.cs
+  def update(self):
+    total = self.kills * KILLS_SCORE \
+               + self.deaths * DEATHS_SCORE \
+               + self.assists * ASSISTS_SCORE \
+               + self.cs * CS_SCORE \
+               + self.first_bloods * FIRST_BLOODS_SCORE \
+               + self.triples * TRIPLES_SCORE \
+               + self.quadras * QUADRAS_SCORE \
+               + self.pentas * PENTAS_SCORE
+    
+    if self.games > 2:
+      total *= 2/self.games
+      
+    self.total = round(total, 2)
+
+  def __str__(self):
+    return (f"Kills: {self.kills}\n"
+            f"Deaths: {self.deaths}\n"
+            f"Assists: {self.assists}\n"
+            f"CS: {self.cs}\n"
+            f"First Bloods: {self.first_bloods}\n"
+            f"Triples: {self.triples}\n"
+            f"Quadras: {self.quadras}\n"
+            f"Pentas: {self.pentas}\n"
+            f"Total: {self.total}\n")
+               
 
 
     
