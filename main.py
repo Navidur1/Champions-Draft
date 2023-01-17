@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from flask import *
 from classes import *
+from functions import *
 import json
 
 app = Flask(__name__)
@@ -77,6 +78,9 @@ for row in table:
     for s in current_scores:
       s.games += 1
       s.update()
+build_player_html(all_players=all_players)
+
+
 
 @app.route('/')
 def hello():
@@ -89,5 +93,9 @@ def test():
     data = json.load(f)
     return jsonify(data)
 
+@app.route('/all_players')
+def display_players():
+  return render_template("player.html")
+  
 if __name__ == "__main__":
   app.run("localhost", 5000)
