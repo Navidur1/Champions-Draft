@@ -1,7 +1,9 @@
 #build html based on pulled player data
 from classes import *
-def build_player_html(all_players:dict):
+from bs4 import BeautifulSoup
+from bs4.formatter import *
 
+def build_player_html(all_players:dict):
     file_html = open("templates/player.html","w")
 
     text = """<!DOCTYPE html>
@@ -22,7 +24,6 @@ def build_player_html(all_players:dict):
                 <th>Kills</th>
                 <th>Deaths</th>
                 <th>Assists</th>
-                <th>First Bloods</th>
                 <th>Triples</th>
                 <th>Quadras</th>
                 <th>Pentas</th>
@@ -46,7 +47,6 @@ def build_player_html(all_players:dict):
         + str(score.kills) + "</th><th>" \
         + str(score.deaths) + "</th><th>" \
         + str(score.assists) + "</th><th>" \
-        + str(score.first_bloods) + "</th><th>" \
         + str(score.triples) + "</th><th>" \
         + str(score.quadras) + "</th><th>" \
         + str(score.pentas) + "</th><th>" \
@@ -61,6 +61,8 @@ def build_player_html(all_players:dict):
             </body>
             </html>"""
 
-    print(text)
-    file_html.write(text)
+    soup = BeautifulSoup(text, 'html.parser')
+    formatter = HTMLFormatter(indent=4)
+    soup_str = str(soup.prettify(formatter=formatter))
+    file_html.write(soup_str)
     file_html.close()

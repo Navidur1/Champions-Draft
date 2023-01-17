@@ -5,7 +5,6 @@ KILLS_SCORE = 3
 DEATHS_SCORE = -1
 ASSISTS_SCORE = 2
 CS_SCORE = 0.02
-FIRST_BLOODS_SCORE = 2
 TRIPLES_SCORE = 2
 QUADRAS_SCORE = 4
 PENTAS_SCORE = 7
@@ -59,7 +58,6 @@ class Score:
     self.kills = 0
     self.deaths = 0
     self.assists = 0
-    self.first_bloods = 0
     self.triples = 0
     self.quadras = 0
     self.pentas = 0
@@ -72,7 +70,6 @@ class Score:
                + self.deaths * DEATHS_SCORE \
                + self.assists * ASSISTS_SCORE \
                + self.cs * CS_SCORE \
-               + self.first_bloods * FIRST_BLOODS_SCORE \
                + self.triples * TRIPLES_SCORE \
                + self.quadras * QUADRAS_SCORE \
                + self.pentas * PENTAS_SCORE
@@ -87,7 +84,6 @@ class Score:
             f"Deaths: {self.deaths}\n"
             f"Assists: {self.assists}\n"
             f"CS: {self.cs}\n"
-            f"First Bloods: {self.first_bloods}\n"
             f"Triples: {self.triples}\n"
             f"Quadras: {self.quadras}\n"
             f"Pentas: {self.pentas}\n"

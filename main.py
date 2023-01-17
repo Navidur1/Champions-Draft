@@ -78,7 +78,8 @@ for row in table:
     for s in current_scores:
       s.games += 1
       s.update()
-build_player_html(all_players=all_players)
+
+build_player_html(all_players)
 
 
 
