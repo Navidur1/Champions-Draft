@@ -77,7 +77,7 @@ for row in table:
     for s in current_scores:
       s.games += 1
       s.update()
-      
+
 @app.route('/')
 def hello():
   return render_template('testing.html')
@@ -90,4 +90,4 @@ def test():
     return jsonify(data)
 
 if __name__ == "__main__":
-  app.run("0.0.0.0", 5050)
+  app.run("localhost", 5000)
