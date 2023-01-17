@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-from flask import Flask
+from flask import *
 from classes import *
+import json
 
 app = Flask(__name__)
 
@@ -20,7 +21,6 @@ for row in table:
   if week[:-1] == "WEEK":
     week = int(week[-1])
     game_url = base_url + str(contents[0].a['href'])[2:-5] + "fullstats/"
-    print(game_url)
     game_response = requests.get(game_url)
     game_soup = BeautifulSoup(game_response.text, 'html.parser')
     game_table = game_soup.find(class_ = "completestats")
@@ -78,10 +78,16 @@ for row in table:
       s.games += 1
       s.update()
       
-      
 @app.route('/')
+def hello():
+  return render_template('testing.html')
+
+@app.route('/test')
 def test():
-  return "a"
+  print("accessing testing data")
+  with open("test.json", "r") as f:
+    data = json.load(f)
+    return jsonify(data)
 
 if __name__ == "__main__":
-  app.run("localhost", 5000)
+  app.run("0.0.0.0", 5050)
