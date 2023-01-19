@@ -79,9 +79,8 @@ for row in table:
       s.games += 1
       s.update()
 
-build_player_html(all_players)
-
-
+for week in range(1, 9):
+  build_player_html(all_players, week)
 
 @app.route('/')
 def hello():
@@ -94,9 +93,10 @@ def test():
     data = json.load(f)
     return jsonify(data)
 
-@app.route('/all_players')
-def display_players():
-  return render_template("player.html")
+@app.route('/week<int:week>')
+def display_players(week):
+  file_name = "week" + str(week) + ".html"
+  return render_template(file_name)
   
 if __name__ == "__main__":
   app.run("localhost", 5000)
