@@ -64,7 +64,7 @@ def build_player_html(all_players:dict, week):
         + str(score.pentas) + "</th><th>" \
         + str(score.cs) + "</th><th>" \
         + str(score.total) + "</th><th>" \
-        + str(score.games) + "</th><tr>"
+        + str(score.games) + "</th></tr>"
         text += line
 
     text += """ 

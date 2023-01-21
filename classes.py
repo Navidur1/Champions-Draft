@@ -30,8 +30,6 @@ class Users:
     self.adc = None
     self.supp = None
     self.util = None
-    self.bench1 = None
-    self.bench2 = None
 
     self.schedule = [None] * 8
     self.wins = 0

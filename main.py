@@ -9,7 +9,8 @@ app = Flask(__name__)
 
 base_url = "https://gol.gg"
 main_page_url = "https://gol.gg/tournament/tournament-matchlist/LCS%20Summer%202022/"
-response = requests.get(main_page_url)
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'}
+response = requests.get(main_page_url, headers=headers)
 soup = BeautifulSoup(response.text, 'html.parser')
 table = soup.find_all(class_ = "table_list")
 table = table[0].tbody.contents
@@ -22,7 +23,7 @@ for row in table:
   if week[:-1] == "WEEK":
     week = int(week[-1])
     game_url = base_url + str(contents[0].a['href'])[2:-5] + "fullstats/"
-    game_response = requests.get(game_url)
+    game_response = requests.get(game_url, headers=headers)
     game_soup = BeautifulSoup(game_response.text, 'html.parser')
     game_table = game_soup.find(class_ = "completestats")
 
@@ -79,19 +80,35 @@ for row in table:
       s.games += 1
       s.update()
 
-for week in range(1, 9):
-  build_player_html(all_players, week)
+# for week in range(1, 9):
+#   build_player_html(all_players, week)
+
+# # Imports the Cloud Logging client library
+# # import google.cloud.logging
+
+# # Instantiates a client
+# client = google.cloud.logging.Client()
+
+# # Retrieves a Cloud Logging handler based on the environment
+# # you're running in and integrates the handler with the
+# # Python logging module. By default this captures all logs
+# # at INFO level and higher
+# client.setup_logging()
+
+# def implicit():
+#     from google.cloud import storage
+
+#     # If you don't specify credentials when constructing the client, the
+#     # client library will look for credentials in the environment.
+#     storage_client = storage.Client()
+
+#     # Make an authenticated API request
+#     buckets = list(storage_client.list_buckets())
+#     print(buckets)
 
 @app.route('/')
 def hello():
-  return render_template('testing.html')
-
-@app.route('/test')
-def test():
-  print("accessing testing data")
-  with open("test.json", "r") as f:
-    data = json.load(f)
-    return jsonify(data)
+  return render_template('index.html')
 
 @app.route('/week<int:week>')
 def display_players(week):
