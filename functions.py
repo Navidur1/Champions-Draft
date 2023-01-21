@@ -2,6 +2,7 @@
 from classes import *
 from bs4 import BeautifulSoup
 from bs4.formatter import *
+APP_URL = "https://glassy-clock-375119.ue.r.appspot.com/"
 
 def build_player_html(all_players:dict, week):
     file_name = "templates/week" + str(week) + ".html"
@@ -17,17 +18,14 @@ def build_player_html(all_players:dict, week):
             <body>
 
             <h2>LCS Players</h2>
-
             <table style="width:100%">
                 <tr>
-                    <a href="http://localhost:5000/week1">Week 1</a>
-                    <a href="http://localhost:5000/week2">Week 2</a>
-                    <a href="http://localhost:5000/week3">Week 3</a>
-                    <a href="http://localhost:5000/week4">Week 4</a>
-                    <a href="http://localhost:5000/week5">Week 5</a>
-                    <a href="http://localhost:5000/week6">Week 6</a>
-                    <a href="http://localhost:5000/week7">Week 7</a>
-                    <a href="http://localhost:5000/week8">Week 8</a>
+"""
+    
+    for i in range(8):
+        text+="""                    <a href="""+APP_URL+"""week"""+str(i+1)+""">Week """+str(i+1)+"""</a>
+"""
+    text+="""
                 </tr>
             </table>
 
