@@ -87,10 +87,10 @@ for row in table:
       s.games += 1
       s.update()
 
-build_index()
+# build_index()
 
-for week in range(1, 9):
-  build_player_html(all_players, week)
+# for week in range(1, 9):
+#   build_player_html(all_players, week)
 
 # # Imports the Cloud Logging client library
 # # import google.cloud.logging
