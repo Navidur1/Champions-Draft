@@ -9,8 +9,10 @@ TRIPLES_SCORE = 2
 QUADRAS_SCORE = 4
 PENTAS_SCORE = 7
 
+APP_URL = "https://glassy-clock-375119.ue.r.appspot.com/"
+
 class Player:
-  def __init__(self, name, team=None):
+  def __init__(self, name: str, team=None):
     self.name = name
     self.team = team
     self.scores = [None] * (NUM_WEEKS + 1)
@@ -18,9 +20,7 @@ class Player:
   def __str__(self):
     return (f"Name: {self.name}\n"
             f"Team: {self.team}\n"
-            f"{self.scores[8]}")
-
-
+            f"{self.scores}")
 
 class Users:
   def __init__(self, name):

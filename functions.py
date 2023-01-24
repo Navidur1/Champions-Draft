@@ -2,11 +2,37 @@
 from classes import *
 from bs4 import BeautifulSoup
 from bs4.formatter import *
-APP_URL = "https://glassy-clock-375119.ue.r.appspot.com/"
+
+def build_index():
+    file_name = "templates/index.html"
+    file_html = open(file_name, "w")
+
+    text = """<!DOCTYPE html>
+            <html>
+                <head>
+                    <title>League Fantasy</title>
+                </head>
+                <body>
+                    <table style="width:100%">
+                        <tr>"""
+            
+    for i in range(8):
+        text +="<a href="+APP_URL+"week"+str(i+1)+">Week "+str(i+1)+"</a>"
+    text +="""
+                    </tr>
+                </table>
+            </body>
+        </html>"""
+        
+    soup = BeautifulSoup(text, 'html.parser')
+    formatter = HTMLFormatter(indent=4)
+    soup_str = str(soup.prettify(formatter=formatter))
+    file_html.write(soup_str)
+    file_html.close()
 
 def build_player_html(all_players:dict, week):
     file_name = "templates/week" + str(week) + ".html"
-    file_html = open(file_name,"w")
+    file_html = open(file_name, "w")
 
     text = """<!DOCTYPE html>
             <html>
@@ -23,8 +49,7 @@ def build_player_html(all_players:dict, week):
 """
     
     for i in range(8):
-        text+="""                    <a href="""+APP_URL+"""week"""+str(i+1)+""">Week """+str(i+1)+"""</a>
-"""
+        text+="<a href="+APP_URL+"week"+str(i+1)+">Week "+str(i+1)+"</a>"
     text+="""
                 </tr>
             </table>
@@ -53,7 +78,7 @@ def build_player_html(all_players:dict, week):
 
         line = "<tr><th>" \
         + p + "</th><th>" \
-        + "Men" + "</th><th>" \
+        + player.team + "</th><th>" \
         + str(score.kills) + "</th><th>" \
         + str(score.deaths) + "</th><th>" \
         + str(score.assists) + "</th><th>" \
