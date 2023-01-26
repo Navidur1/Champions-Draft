@@ -5,6 +5,9 @@ from classes import *
 from functions import *
 import json
 from google.cloud import firestore
+import firebase_admin
+from firebase_admin import firestore
+import re
 
 app = Flask(__name__)
 
@@ -17,6 +20,7 @@ response = requests.get(main_page_url, headers=headers)
 soup = BeautifulSoup(response.text, 'html.parser')
 table = soup.find_all(class_ = "table_list")
 table = table[0].tbody.contents
+
 
 all_players = {}
 
@@ -83,10 +87,36 @@ for row in table:
       s.games += 1
       s.update()
 
+
+
+
+# Application Default credentials are automatically created.
+app = firebase_admin.initialize_app() #https://firebase.google.com/docs/admin/setup#python_2 has info on users
+db = firestore.client()
+
+#convert string to unicode
+def to_uni(s:str):
+  return (re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), s))
+
+#write info into database
+col_ref = db.collection(u'Players')
+for p in all_players:
+  player = all_players[p] #get player object
+
+  #convert name to unicode
+  uni_name = to_uni(p)
+  col_ref.document(uni_name).set({
+    u'name':uni_name,
+    u'team':to_uni(player.team)
+    
+
+  })
+  break
+
 # The `project` parameter is optional and represents which project the client
 # will act on behalf of. If not supplied, the client falls back to the default
 # project inferred from the environment.
-db = firestore.Client(project='my-project-id')
+# db = firestore.Client(project='my-project-id')
 
 # for week in range(1, 9):
 #   build_player_html(all_players, week)
@@ -123,5 +153,6 @@ def display_players(week):
   file_name = "week" + str(week) + ".html"
   return render_template(file_name)
   
+
 if __name__ == "__main__":
   app.run("localhost", 5000)
