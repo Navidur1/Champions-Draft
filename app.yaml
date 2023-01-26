@@ -11,3 +11,8 @@ handlers:
   # the entire handlers section) when there are no static files defined.
 - url: /.*
   script: auto
+
+  #must listen to 8080 port?
+network:
+  forwarded_ports:
+    - 8080/tcp
