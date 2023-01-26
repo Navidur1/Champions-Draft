@@ -4,7 +4,6 @@ from flask import *
 from classes import *
 from functions import *
 import json
-from google.cloud import firestore
 import firebase_admin
 from firebase_admin import firestore
 import re
