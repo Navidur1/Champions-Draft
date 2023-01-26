@@ -12,10 +12,10 @@ handlers:
 - url: /.*
   script: auto
 
-  #must listen to 8080 port?
-network:
-  forwarded_ports:
-    - 8080/tcp
+#   #must listen to 8080 port?
+# network:
+#   forwarded_ports:
+#     - 8080/tcp
 
-manual_scaling:
-  instances: 1
+# manual_scaling:
+#   instances: 1
