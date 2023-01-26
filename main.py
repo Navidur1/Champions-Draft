@@ -113,6 +113,7 @@ for p in all_players:
   })
   break
 
+
 # The `project` parameter is optional and represents which project the client
 # will act on behalf of. If not supplied, the client falls back to the default
 # project inferred from the environment.
