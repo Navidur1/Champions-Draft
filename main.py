@@ -4,8 +4,11 @@ from flask import *
 from classes import *
 from functions import *
 import json
+from google.cloud import firestore
 
 app = Flask(__name__)
+
+APP_URL = "https://glassy-clock-375119.ue.r.appspot.com/"
 
 base_url = "https://gol.gg"
 main_page_url = "https://gol.gg/tournament/tournament-matchlist/LCS%20Summer%202022/"
@@ -26,20 +29,13 @@ for row in table:
     game_response = requests.get(game_url, headers=headers)
     game_soup = BeautifulSoup(game_response.text, 'html.parser')
     game_table = game_soup.find(class_ = "completestats")
-    team_header = game_soup.find('h1').text.split("vs")
-    team1 = team_header[0][:-1]
-    team2 = team_header[1][1:]
 
     current_scores = []
     #Name
-    for i in range(len(game_table.contents[1].contents[1:])):
-      name = game_table.contents[1].contents[1:][i].text
+    for name in game_table.contents[1].contents[1:]:
+      name = name.text
       if name not in all_players:
-        if i < 5:
-          all_players[name] = Player(name, team1)
-
-        else:
-          all_players[name] = Player(name, team2)
+        all_players[name] = Player(name)
         
       if all_players[name].scores[week] == None:
         all_players[name].scores[week] = Score()
@@ -87,7 +83,10 @@ for row in table:
       s.games += 1
       s.update()
 
-# build_index()
+# The `project` parameter is optional and represents which project the client
+# will act on behalf of. If not supplied, the client falls back to the default
+# project inferred from the environment.
+db = firestore.Client(project='my-project-id')
 
 # for week in range(1, 9):
 #   build_player_html(all_players, week)
