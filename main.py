@@ -93,10 +93,6 @@ for row in table:
 app = firebase_admin.initialize_app() #https://firebase.google.com/docs/admin/setup#python_2 has info on users
 db = firestore.client()
 
-#convert string to unicode
-def to_uni(s:str):
-  return 
-
 #write info into database
 col_ref = db.collection(u'Players')
 for p in all_players:
@@ -104,9 +100,10 @@ for p in all_players:
 
   #convert name to unicode
   uni_name = (re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), p))
+  uni_team = (re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), player.team))
   col_ref.document(uni_name).set({
     u'name':uni_name,
-    u'team':(re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), player.team))
+    u'team':uni_team
     
 
   })
