@@ -4,9 +4,7 @@ from flask import *
 from classes import *
 from functions import *
 import json
-import firebase_admin
-from firebase_admin import firestore
-import re
+from google.cloud import firestore
 
 app = Flask(__name__)
 
@@ -88,26 +86,44 @@ for row in table:
 
 
 
+db = firestore.Client()
+
+doc_ref = db.collection(u'users').document(u'navid')
+doc_ref.set({
+  u'top': u'ssumday',
+  u'jg': u'pyosik',
+  u'mid': u'haeri',
+  u'adc': u'fbi',
+  u'supp': u'vulcan',
+  u'bench': u'contractz'
+})
+
+# doc_ref = db.collection(u'users')
+# docs = doc_ref.stream()
+
+# for doc in docs:
+#   print(doc)
+
 
 # Application Default credentials are automatically created.
-app = firebase_admin.initialize_app() #https://firebase.google.com/docs/admin/setup#python_2 has info on users
-db = firestore.client()
+# app = firebase_admin.initialize_app() #https://firebase.google.com/docs/admin/setup#python_2 has info on users
+# db = firestore.client()
 
-#write info into database
-col_ref = db.collection(u'Players')
-for p in all_players:
-  player = all_players[p] #get player object
+# #write info into database
+# col_ref = db.collection(u'Players')
+# for p in all_players:
+#   player = all_players[p] #get player object
 
-  #convert name to unicode
-  uni_name = (re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), p))
-  uni_team = (re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), player.team))
-  col_ref.document(uni_name).set({
-    u'name':uni_name,
-    u'team':uni_team
+#   #convert name to unicode
+#   uni_name = (re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), p))
+#   uni_team = (re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), player.team))
+#   col_ref.document(uni_name).set({
+#     u'name':uni_name,
+#     u'team':uni_team
     
 
-  })
-  break
+#   })
+#   break
 
 
 # The `project` parameter is optional and represents which project the client
