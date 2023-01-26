@@ -95,7 +95,7 @@ db = firestore.client()
 
 #convert string to unicode
 def to_uni(s:str):
-  return (re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), s))
+  return 
 
 #write info into database
 col_ref = db.collection(u'Players')
@@ -103,10 +103,10 @@ for p in all_players:
   player = all_players[p] #get player object
 
   #convert name to unicode
-  uni_name = to_uni(p)
+  uni_name = (re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), p))
   col_ref.document(uni_name).set({
     u'name':uni_name,
-    u'team':to_uni(player.team)
+    u'team':(re.sub('.', lambda x: r'\u % 04X' % ord(x.group()), player.team))
     
 
   })
