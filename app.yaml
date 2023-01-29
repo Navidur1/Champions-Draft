@@ -1,5 +1,9 @@
 runtime: python310
 #entrypoint: gunicorn -b :5000 main:app
+
+env_variables:
+  STORAGE_PATH: "glassy-clock-375119.appspot.com"
+
 handlers:
   # This configures Google App Engine to serve the files in the app's static
   # directory.

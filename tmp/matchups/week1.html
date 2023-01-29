@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .matchup-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                }
+                .matchup {
+                display: flex;
+                flex-wrap: wrap;
+                }
+                .team {
+                width: 600px;
+                padding: 20px;
+                text-align: center;
+                }
+                .team img {
+                width: 80px;
+                height: 80px;
+                }
+                .team h3 {
+                margin-top: 10px;
+                font-size: 1.5em;
+                }
+                .players {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                }
+                .player {
+                width: 550px;
+                margin: 10px;
+                text-align: center;
+                }
+                .player h4 {
+                margin-top: 10px;
+                }
+                .player span {
+                font-weight: bold;
+                }
+                .team-score {
+                margin: 20px 0;
+                }
+                .team-score h4 {
+                text-align: center;
+                }
+        </style>
+    </head>
+    <body>
+        <div class="matchup-container">
+            <div class="matchup">
+                <div class="team team-one">
+                    <h3>
+                        Navid
+                    </h3>
+                    <div class="players">
+                        <table style="width:100%">
+                            <tr>
+                                <th>
+                                    Role
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Kills>
+                                </th>
+                                <th>
+                                    Deaths
+                                </th>
+                                <th>
+                                    Assists
+                                </th>
+                                <th>
+                                    Triples
+                                </th>
+                                <th>
+                                    Quadras
+                                </th>
+                                <th>
+                                    Pentas
+                                </th>
+                                <th>
+                                    CS
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                                <th>
+                                    Games
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Top
+                                </th>
+                                <th>
+                                    ssumday
+                                </th>
+                                <th>
+                                    EG
+                                </th>
+                                <th>
+                                    5
+                                </th>
+                                <th>
+                                    8
+                                </th>
+                                <th>
+                                    8
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    698
+                                </th>
+                                <th>
+                                    36.96
+                                </th>
+                                <th>
+                                    2
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    JG
+                                </th>
+                                <th>
+                                    Pyosik
+                                </th>
+                                <th>
+                                    TSM
+                                </th>
+                                <th>
+                                    1
+                                </th>
+                                <th>
+                                    7
+                                </th>
+                                <th>
+                                    11
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    356
+                                </th>
+                                <th>
+                                    25.12
+                                </th>
+                                <th>
+                                    2
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Mid
+                                </th>
+                                <th>
+                                    Haeri
+                                </th>
+                                <th>
+                                    TSM
+                                </th>
+                                <th>
+                                    8
+                                </th>
+                                <th>
+                                    8
+                                </th>
+                                <th>
+                                    3
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    607
+                                </th>
+                                <th>
+                                    34.14
+                                </th>
+                                <th>
+                                    2
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    ADC
+                                </th>
+                                <th>
+                                    FBI
+                                </th>
+                                <th>
+                                    EG
+                                </th>
+                                <th>
+                                    11
+                                </th>
+                                <th>
+                                    1
+                                </th>
+                                <th>
+                                    12
+                                </th>
+                                <th>
+                                    1
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    787
+                                </th>
+                                <th>
+                                    73.74
+                                </th>
+                                <th>
+                                    2
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Support
+                                </th>
+                                <th>
+                                    Vulcan
+                                </th>
+                                <th>
+                                    EG
+                                </th>
+                                <th>
+                                    1
+                                </th>
+                                <th>
+                                    4
+                                </th>
+                                <th>
+                                    15
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    63
+                                </th>
+                                <th>
+                                    30.26
+                                </th>
+                                <th>
+                                    2
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    JG
+                                </th>
+                                <th>
+                                    Contractz
+                                </th>
+                                <th>
+                                    CLG
+                                </th>
+                                <th>
+                                    4
+                                </th>
+                                <th>
+                                    3
+                                </th>
+                                <th>
+                                    15
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    0
+                                </th>
+                                <th>
+                                    356
+                                </th>
+                                <th>
+                                    46.12
+                                </th>
+                                <th>
+                                    2
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="team team-two">
+                    <h3>
+                        Adam
+                    </h3>
+                    <div class="players">
+                        <div class="player">
+                            <h4>
+                                Top: Summit
+                                <span>
+                                    Score: 21.72
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="player">
+                            <h4>
+                                JG: Closer
+                                <span>
+                                    Score: 39.68
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="player">
+                            <h4>
+                                Mid: Maple
+                                <span>
+                                    Score: 69.12
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="player">
+                            <h4>
+                                ADC: Summit
+                                <span>
+                                    Score: 80.74
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="player">
+                            <h4>
+                                Support: Zven
+                                <span>
+                                    Score: 69.1
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="player">
+                            <h4>
+                                Bench: Young
+                                <span>
+                                    Score: 26.86
+                                </span>
+                            </h4>
+                        </div>
+                        <div class="team-score">
+                            <h4>
+                                Total Score: 480.58
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
