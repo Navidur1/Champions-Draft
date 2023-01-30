@@ -1,11 +1,7 @@
-import requests
-from bs4 import BeautifulSoup
 from flask import *
 from classes import *
 from functions import *
-import json
-from google.cloud import firestore
-from google.cloud import storage
+from scrape import *
 
 app = Flask(__name__, template_folder="/tmp")
 
@@ -157,8 +153,11 @@ build_index()
 #     buckets = list(storage_client.list_buckets())
 #     print(buckets)
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def hello():
+    build_index()
+    if request.method == "POST":
+        run_scrape()
     return render_template('index.html')
 
 @app.route('/players/week<int:week>')

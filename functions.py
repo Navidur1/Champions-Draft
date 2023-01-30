@@ -239,3 +239,87 @@ def build_matchup_html(schedule, all_players:dict, users:dict, week):
     soup_str = str(soup.prettify(formatter=formatter))
     file_html.write(soup_str)
     file_html.close()
+
+
+def build_index():
+    file_name = "/tmp/index.html"
+    file_html = open(file_name, "w+")
+
+    text= '''
+    <!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th {
+            background-color: green;
+            Color: white;
+        }
+
+        th,
+        td {
+            width: 150px;
+            text-align: center;
+            border: 1px solid black;
+            padding: 5px
+        }
+
+        .col {
+            font-weight: bold;
+        }
+
+        h1 {
+            color: black;
+        }
+    </style>
+    <title>
+        Champions Draft
+    </title>
+</head>
+
+<body>
+    <center>
+        <h1>Champions Draft</h1>
+        <table>
+            <tr>
+                <td class="col">Matchups</td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week1">Week 1</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week2">Week 2</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week3">Week 3</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week4">Week 4</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week5">Week 5</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week6">Week 6</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week7">Week 7</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week8">Week 8</a></td>
+            </tr>
+            <tr>
+                <td class="col">Player Data</td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week1">Week 1</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week2">Week 2</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week3">Week 3</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week4">Week 4</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week5">Week 5</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week6">Week 6</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week7">Week 7</a></td>
+                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week8">Week 8</a></td>
+            </tr>
+        </table>
+        <form method="post">
+            <input type="button" id='script' name="submit" value="Refresh">
+        </form>
+    </center>
+</body>
+
+</html>
+    
+    '''
+    soup = BeautifulSoup(text, 'html.parser')
+    formatter = HTMLFormatter(indent=4)
+    soup_str = str(soup.prettify(formatter=formatter))
+    file_html.write(soup_str)
+    file_html.close()
