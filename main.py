@@ -98,26 +98,24 @@ for row in table:
             s.games += 1
             s.update()
 
-users = {
-    "Adam": {
-        "Top": "Summit",
-        "JG": "Closer",
-        "Mid": "Maple",
-        "ADC": "Prince",
-        "Support": "Zven",
-        "Bench": "Young"
-    },
-    "Navid": {
-        "Top": "ssumday",
-        "JG": "Pyosik",
-        "Mid": "Haeri",
-        "ADC": "FBI",
-        "Support": "Vulcan",
-        "Bench": "Contractz"
-    }
-}
+users = {}
+users["Adam"] = User("Adam", "Summit", "Closer", "Maple", "Prince", "Zven", "Young")
+users["Alex"] = User("Alex", "Tenacity", "Inspired", "Bjergsen", "Berserker", "Busio", "Armut")
+users["Jack"] = User("Jack", "Impact", "Blaber", "Vicla", "Doublelift", "CoreJJ", "Jensen")
+users["Jakir"] = User("Jakir", "Dhokla", "Spica", "Diplex", "Yeon", "Winsome", "Palafox")
+users["Jorel"] = User("Jorel", "Fudge", "Santorin", "jojopyun", "Luger", "Chime", "Stixxay")
+users["Navid"] = User("Navid", "ssumday", "Pyosik", "Haeri", "FBI", "Vulcan", "Contractz")
 
-build_matchup_html(all_players, users, 1)
+schedule = []
+schedule.append(None)
+schedule.append(Matchups("Jack", "Alex", "Navid", "Jorel", "Adam", "Jakir", users))
+schedule.append(Matchups("Jack", "Jorel", "Alex", "Jakir", "Navid", "Adam", users))
+schedule.append(Matchups("Jack", "Jakir", "Jorel", "Adam", "Alex", "Navid", users))
+schedule.append(Matchups("Jack", "Adam", "Jakir", "Navid", "Jorel", "Alex", users))
+schedule.append(Matchups("Navid", "Jack", "Adam", "Alex", "Jakir", "Jorel", users))
+schedule.append(Matchups("Jack", "Alex", "Navid", "Jorel", "Adam", "Jakir", users))
+
+build_matchup_html(schedule, all_players, users, 1)
 build_index()
 
 # db = firestore.Client() 

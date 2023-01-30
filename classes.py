@@ -22,15 +22,26 @@ class Player:
 		return (f"Name: {self.name}\n"
 				f"Team: {self.team}\n"
 				f"{self.scores}")
+				
 
-class Users:
-	def __init__(self, name):
-		self.top = None
-		self.jg = None
-		self.mid = None
-		self.adc = None
-		self.supp = None
-		self.util = None
+
+class Matchups:
+	def __init__(self, u1, u2, u3, u4, u5, u6, users):
+		self.matches = [(users[u1], users[u2]), (users[u3], users[u4]), (users[u5], users[u6])]
+
+
+
+class User:
+	def __init__(self, name, top, jg, mid, adc, supp, bench):
+		self.name = name
+		self.roles = {
+			"Top": top,
+			"JG": jg,
+			"Mid": mid,
+			"ADC": adc,
+			"Support": supp,
+			"Bench": bench
+		}
 
 		self.schedule = [None] * 8
 		self.wins = 0
