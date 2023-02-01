@@ -5,7 +5,7 @@ from functions import *
 # from google.cloud import firestore
 # from google.cloud import storage 
 
-APP_URL = "https://glassy-clock-375119.ue.r.appspot.com/"
+APP_URL = "https://champions-draft.uc.r.appspot.com/"
 
 base_url = "https://gol.gg"
 main_page_url = "https://gol.gg/tournament/tournament-matchlist/LCS%20Spring%202023/"
@@ -18,6 +18,23 @@ table = table[0].tbody.contents
 all_players = {}
 
 roles = ["Top", "JG", "Mid", "ADC", "Support"]
+users = {}
+users["Adam"] = User("Adam", "Summit", "Closer", "Maple", "Prince", "Zven", "Young")
+users["Alex"] = User("Alex", "Tenacity", "Inspired", "Bjergsen", "Berserker", "Busio", "Armut")
+users["Jack"] = User("Jack", "Impact", "Blaber", "Vicla", "Doublelift", "CoreJJ", "Jensen")
+users["Jakir"] = User("Jakir", "Dhokla", "Spica", "Diplex", "Yeon", "Winsome", "Palafox")
+users["Jorel"] = User("Jorel", "Fudge", "Santorin", "jojopyun", "Luger", "Chime", "Stixxay")
+users["Navid"] = User("Navid", "ssumday", "Pyosik", "Haeri", "FBI", "Vulcan", "Contractz")
+
+schedule = []
+schedule.append(None)
+schedule.append(Matchups("Jack", "Alex", "Navid", "Jorel", "Adam", "Jakir", users))
+schedule.append(Matchups("Jack", "Jorel", "Alex", "Jakir", "Navid", "Adam", users))
+schedule.append(Matchups("Jack", "Jakir", "Jorel", "Adam", "Alex", "Navid", users))
+schedule.append(Matchups("Jack", "Adam", "Jakir", "Navid", "Jorel", "Alex", users))
+schedule.append(Matchups("Navid", "Jack", "Adam", "Alex", "Jakir", "Jorel", users))
+schedule.append(Matchups("Jack", "Alex", "Navid", "Jorel", "Adam", "Jakir", users))
+
 def run_scrape():
     for row in table:
         contents = row.contents
@@ -34,8 +51,18 @@ def run_scrape():
 
             teams = game_soup.find("h1")
             team2, team1 = teams.text.split("vs")
-            team2 = team2[:-1]
             team1 = team1[1:]
+            team2 = team2[:-1]
+            
+            if team1 == "Team Liquid":
+                team1 = "TL"
+            if team1 == "100 Thieves":
+                team1 = "100T"
+
+            if team1 == "Team Liquid":
+                team2 = "TL"
+            if team2 == "100 Thieves":
+                team2 = "100T"
 
             current_scores = []
             #Name

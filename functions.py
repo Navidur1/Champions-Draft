@@ -7,23 +7,49 @@ def build_index():
     file_name = "/tmp/index.html"
     file_html = open(file_name, "w+")
 
-    text = """<!DOCTYPE html>
-            <html>
-                <head>
-                    <title>League Fantasy</title>
-                </head>
-                <body>
-                    <table style="width:100%">
-                        <tr>"""
-            
-    for i in range(6):
-        text +="<a href="+"/players/week"+str(i+1)+">Week "+str(i+1)+"</a>"
-    text +="""
-                    </tr>
-                </table>
-            </body>
-        </html>"""
-        
+    text= '''
+    <!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Champions Draft
+    </title>
+    <link rel="stylesheet" href="static/css/main.css">
+</head>
+
+<body>
+    <div class="center">
+        <h1>Champions Draft</h1>
+        <table>
+            <tr>
+                <td class="col">Matchups</td>
+                <td><a href="matchups/week1">Week 1</a></td>
+                <td><a href="matchups/week2">Week 2</a></td>
+                <td><a href="matchups/week3">Week 3</a></td>
+                <td><a href="matchups/week4">Week 4</a></td>
+                <td><a href="matchups/week5">Week 5</a></td>
+                <td><a href="matchups/week6">Week 6</a></td>
+            </tr>
+            <tr>
+                <td class="col">Player Data</td>
+                <td><a href="players/week1">Week 1</a></td>
+                <td><a href="players/week2">Week 2</a></td>
+                <td><a href="players/week3">Week 3</a></td>
+                <td><a href="players/week4">Week 4</a></td>
+                <td><a href="players/week5">Week 5</a></td>
+                <td><a href="players/week6">Week 6</a></td>
+            </tr>
+        </table>
+        <form method="post">
+            <input type="button" id='script' name="submit" value="Refresh">
+        </form>
+    </div>
+</body>
+
+</html>
+    
+    '''
     soup = BeautifulSoup(text, 'html.parser')
     formatter = HTMLFormatter(indent=4)
     soup_str = str(soup.prettify(formatter=formatter))
@@ -36,25 +62,38 @@ def build_player_html(all_players:dict, week):
 
     text = """<!DOCTYPE html>
             <html>
-            <style>
-            table, th, td {
-            border:1px solid black;
-            }
-            </style>
+            <head>
+                <title>
+                    Champions Draft
+                </title>
+                <link rel="stylesheet" href="../static/css/main.css">
+            </head>
             <body>
-
+            <div class="center">
+                <h1>Champions Draft</h1>
+                <table>
+                    <tr>
+                        <td class="col">Matchups</td>
+                        <td><a href="../matchups/week1">Week 1</a></td>
+                        <td><a href="../matchups/week2">Week 2</a></td>
+                        <td><a href="../matchups/week3">Week 3</a></td>
+                        <td><a href="../matchups/week4">Week 4</a></td>
+                        <td><a href="../matchups/week5">Week 5</a></td>
+                        <td><a href="../matchups/week6">Week 6</a></td>
+                    </tr>
+                    <tr>
+                        <td class="col">Player Data</td>
+                        <td><a href="week1">Week 1</a></td>
+                        <td><a href="week2">Week 2</a></td>
+                        <td><a href="week3">Week 3</a></td>
+                        <td><a href="week4">Week 4</a></td>
+                        <td><a href="week5">Week 5</a></td>
+                        <td><a href="week6">Week 6</a></td>
+                    </tr>
+                </table>
+            </div>
             <h2>LCS Players</h2>
-            <table style="width:100%">
-                <tr>
-"""
-    
-    for i in range(6):
-        text+="<a href="+"/players/week"+str(i+1)+">Week "+str(i+1)+"</a>"
-    text+="""
-                </tr>
-            </table>
-
-            <table style="width:100%">
+            <table class="data">
                 <tr>
                     <th>Name</th>
                     <th>Team</th>
@@ -102,7 +141,7 @@ def build_player_html(all_players:dict, week):
     file_html.close()
 
 def build_matchup_html(schedule, all_players:dict, users:dict, week):
-    file_name = "tmp/matchups/week" + str(week) + ".html"
+    file_name = "/tmp/matchups/week" + str(week) + ".html"
     file_html = open(file_name, "w+")
     total = 0
     matchups = schedule[week]
@@ -110,59 +149,35 @@ def build_matchup_html(schedule, all_players:dict, users:dict, week):
     text = """<!DOCTYPE html>
             <html>
             <head>
-            <style>
-                .matchup-container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-wrap: wrap;
-                }
-                .matchup {
-                display: flex;
-                flex-wrap: wrap;
-                }
-                .team {
-                width: 900px;
-                padding: 20px;
-                text-align: center;
-                }
-                .team img {
-                width: 80px;
-                height: 80px;
-                }
-                .team h3 {
-                margin-top: 10px;
-                font-size: 1.5em;
-                }
-                .players {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                }
-                .player {
-                width: 750px;
-                margin: 10px;
-                text-align: center;
-                }
-                .player h4 {
-                margin-top: 10px;
-                }
-                .player span {
-                font-weight: bold;
-                }
-                .team-score {
-                margin: 20px 0;
-                }
-                .team-score h4 {
-                text-align: center;
-                }
-                .table {
-                width: 100%;
-                border-spacing: 20px;
-                }
-            </style>
+                <title>
+                    Champions Draft
+                </title>
+                <link rel="stylesheet" href="../static/css/main.css">
             </head>
             <body>
+            <div class="center">
+                <h1>Champions Draft</h1>
+                <table>
+                    <tr>
+                        <td class="col">Matchups</td>
+                        <td><a href="week1">Week 1</a></td>
+                        <td><a href="week2">Week 2</a></td>
+                        <td><a href="week3">Week 3</a></td>
+                        <td><a href="week4">Week 4</a></td>
+                        <td><a href="week5">Week 5</a></td>
+                        <td><a href="week6">Week 6</a></td>
+                    </tr>
+                    <tr>
+                        <td class="col">Player Data</td>
+                        <td><a href="../players/week1">Week 1</a></td>
+                        <td><a href="../players/week2">Week 2</a></td>
+                        <td><a href="../players/week3">Week 3</a></td>
+                        <td><a href="../players/week4">Week 4</a></td>
+                        <td><a href="../players/week5">Week 5</a></td>
+                        <td><a href="../players/week6">Week 6</a></td>
+                    </tr>
+                </table>
+            </div>
             <div class="matchup-container">
 """
     for i in range(3):
@@ -176,8 +191,8 @@ def build_matchup_html(schedule, all_players:dict, users:dict, week):
                 <h3>"""
         text += user1.name
         text += """</h3>
-                <div class ="players">
-                <table class="table">
+                <div class="players">
+                <table class="data">
     """
         text += """<tr>
                     <th>Role</th><th>Name</th><th>Team</th><th>Kills</th><th>Deaths</th>
@@ -191,7 +206,11 @@ def build_matchup_html(schedule, all_players:dict, users:dict, week):
             player_name = user1.roles[role]
             player = all_players[player_name]
             score = player.scores[week]
-            text += "<tr><th>" + str(player.role) + "</th><th>" + str(player_name) + "</th><th>" + str(player.team) \
+
+            if score == None:
+                return ""
+            
+            text += "<tr><th>" + str(role) + "</th><th>" + str(player_name) + "</th><th>" + str(player.team) \
                 + "</th><th>" + str(score.kills) + "</th><th>" + str(score.deaths) + "</th><th>" + str(score.assists) \
                 + "</th><th>" + str(score.triples) + "</th><th>" + str(score.quadras) + "</th><th>" + str(score.pentas) \
                 + "</th><th>" + str(score.cs) + "</th><th>" + str(score.total) + "</th><th>" + str(score.games) \
@@ -207,8 +226,8 @@ def build_matchup_html(schedule, all_players:dict, users:dict, week):
                 <h3>"""
         text += user2.name
         text += """</h3>
-                <div class ="players">
-                <table class="table">
+                <div class="players">
+                <table class="data">
     """
         text += """<tr>
                     <th>Role</th><th>Name</th><th>Team</th><th>Kills</th><th>Deaths</th>
@@ -221,7 +240,7 @@ def build_matchup_html(schedule, all_players:dict, users:dict, week):
             player_name = user2.roles[role]
             player = all_players[player_name]
             score = player.scores[week]
-            text += "<tr><th>" + str(player.role) + "</th><th>" + str(player_name) + "</th><th>" + str(player.team) \
+            text += "<tr><th>" + str(role) + "</th><th>" + str(player_name) + "</th><th>" + str(player.team) \
                 + "</th><th>" + str(score.kills) + "</th><th>" + str(score.deaths) + "</th><th>" + str(score.assists) \
                 + "</th><th>" + str(score.triples) + "</th><th>" + str(score.quadras) + "</th><th>" + str(score.pentas) \
                 + "</th><th>" + str(score.cs) + "</th><th>" + str(score.total) + "</th><th>" + str(score.games) \
@@ -234,90 +253,6 @@ def build_matchup_html(schedule, all_players:dict, users:dict, week):
 
     text += "</div></body></html>"
 
-    soup = BeautifulSoup(text, 'html.parser')
-    formatter = HTMLFormatter(indent=4)
-    soup_str = str(soup.prettify(formatter=formatter))
-    file_html.write(soup_str)
-    file_html.close()
-
-
-def build_index():
-    file_name = "/tmp/index.html"
-    file_html = open(file_name, "w+")
-
-    text= '''
-    <!DOCTYPE html>
-<html>
-
-<head>
-    <style>
-        table {
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-
-        th {
-            background-color: green;
-            Color: white;
-        }
-
-        th,
-        td {
-            width: 150px;
-            text-align: center;
-            border: 1px solid black;
-            padding: 5px
-        }
-
-        .col {
-            font-weight: bold;
-        }
-
-        h1 {
-            color: black;
-        }
-    </style>
-    <title>
-        Champions Draft
-    </title>
-</head>
-
-<body>
-    <center>
-        <h1>Champions Draft</h1>
-        <table>
-            <tr>
-                <td class="col">Matchups</td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week1">Week 1</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week2">Week 2</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week3">Week 3</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week4">Week 4</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week5">Week 5</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week6">Week 6</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week7">Week 7</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/matchup/week8">Week 8</a></td>
-            </tr>
-            <tr>
-                <td class="col">Player Data</td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week1">Week 1</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week2">Week 2</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week3">Week 3</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week4">Week 4</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week5">Week 5</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week6">Week 6</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week7">Week 7</a></td>
-                <td><a href="https://glassy-clock-375119.ue.r.appspot.com/players/week8">Week 8</a></td>
-            </tr>
-        </table>
-        <form method="post">
-            <input type="button" id='script' name="submit" value="Refresh">
-        </form>
-    </center>
-</body>
-
-</html>
-    
-    '''
     soup = BeautifulSoup(text, 'html.parser')
     formatter = HTMLFormatter(indent=4)
     soup_str = str(soup.prettify(formatter=formatter))

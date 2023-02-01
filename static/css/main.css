@@ -1,0 +1,75 @@
+table {
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.data {
+    width: 100%;
+    border-spacing: 20px;
+}
+
+th, td {
+    width: 150px;
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px
+}
+
+.col {
+    font-weight: bold;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: black;
+}
+
+.matchup-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.matchup {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.team {
+    width: 900px;
+    padding: 15px;
+    text-align: center;
+}
+
+.team h3 {
+    margin-top: 10px;
+    font-size: 1.5em;
+}
+
+.players {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.player h4 {
+    margin-top: 10px;
+}
+
+.player span {
+    font-weight: bold;
+}
+
+.team-score {
+    margin: 20px 0;
+}
+
+.team-score h4 {
+    text-align: center;
+}
