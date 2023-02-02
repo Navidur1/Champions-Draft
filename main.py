@@ -2,24 +2,36 @@ from flask import *
 from classes import *
 from functions import *
 from scrape import *
-import os
-
+from database import *
 app = Flask(__name__, template_folder="/tmp")
 
-if not os.path.exists("/tmp/matchups"):
-    os.makedirs("/tmp/matchups")
-
-if not os.path.exists("/tmp/players"):
-    os.makedirs("/tmp/players")
-
-run_scrape()
-build_index()
+users = {
+    "Adam": {
+        "Top": "Summit",
+        "JG": "Closer",
+        "Mid": "Maple",
+        "ADC": "Prince",
+        "Support": "Zven",
+        "Bench": "Young"
+    },
+    "Navid": {
+        "Top": "ssumday",
+        "JG": "Pyosik",
+        "Mid": "Haeri",
+        "ADC": "FBI",
+        "Support": "Vulcan",
+        "Bench": "Contractz"
+    }
+}
 
 @app.route('/', methods=['POST', 'GET'])
 def hello():
     build_index()
+    run_scrape()
+    write_data()
     if request.method == "POST":
         run_scrape()
+        write_data()
     return render_template('index.html')
 
 @app.route('/players/week<int:week>')
@@ -30,7 +42,7 @@ def display_players(week):
 
 @app.route('/matchups/week<int:week>')
 def display_matchups(week):
-    build_matchup_html(schedule, all_players, users, week)
+    build_matchup_html(all_players, users, week)
     file_name = "matchups/week" + str(week) + ".html"
     return render_template(file_name)
   

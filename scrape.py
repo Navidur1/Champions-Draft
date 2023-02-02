@@ -2,8 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from classes import *
 from functions import *
-# from google.cloud import firestore
-# from google.cloud import storage 
 
 APP_URL = "https://champions-draft.uc.r.appspot.com/"
 
