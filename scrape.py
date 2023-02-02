@@ -33,11 +33,14 @@ schedule.append(Matchups("Jack", "Adam", "Jakir", "Navid", "Jorel", "Alex", user
 schedule.append(Matchups("Navid", "Jack", "Adam", "Alex", "Jakir", "Jorel", users))
 schedule.append(Matchups("Jack", "Alex", "Navid", "Jorel", "Adam", "Jakir", users))
 
+cur_week = ""
+
 def run_scrape():
     for row in table:
         contents = row.contents
         week = contents[4].text
         if week[:-1] == "WEEK":
+        # if week[-1] == cur_week:
             week = int(week[-1])
             game_url = base_url + str(contents[0].a['href'])[2:-5] + "fullstats/"
             game_response = requests.get(game_url, headers=headers)

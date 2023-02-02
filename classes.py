@@ -18,6 +18,24 @@ class Player:
 		self.role = role
 		self.scores = [None] * (NUM_WEEKS + 1)
 
+	def to_dict(self):
+		scores_dict = [None]
+		for i in range(1,7):
+			if self.scores[i] is None:
+				scores_dict.append(None)
+
+			else:
+				scores_dict.append(self.scores[i].to_dict())
+
+		ret = {
+			"name": self.name,
+			"team": self.team,
+			"role": self.role,
+			"scores": scores_dict
+		}
+
+		return ret
+
 	def __str__(self):
 		return (f"Name: {self.name}\n"
 				f"Team: {self.team}\n"
@@ -34,6 +52,7 @@ class Matchups:
 class User:
 	def __init__(self, name, top, jg, mid, adc, supp, bench):
 		self.name = name
+		self.teams = []
 		self.roles = {
 			"Top": top,
 			"JG": jg,
@@ -49,6 +68,17 @@ class User:
 
 		self.points_for = 0
 		self.points_against = 0
+
+	# def to_dict(self):
+	# 	ret = {
+	# 		"name": self.name,
+	# 		"roles": self.roles,
+	# 		"schedule": self.schedule,
+	# 		"wins": self.wins,
+	# 		"losses": self.losses,
+	# 		"points_for": self.points_for,
+	# 		"points_against"
+	# 	}
 
 
     
@@ -88,6 +118,21 @@ class Score:
 			total *= 2/self.games
 			
 		self.total = round(total, 2)
+
+	def to_dict(self):
+		ret = {
+			"kills": self.kills,
+			"deaths": self.deaths,
+			"assists": self.assists,
+			"triples": self.triples,
+			"quadras": self.quadras,
+			"pentas": self.pentas,
+			"cs": self.cs,
+			"total": self.total,
+			"games": self.games
+		}
+
+		return ret
 
 	def __str__(self):
 		return (f"Kills: {self.kills}\n"

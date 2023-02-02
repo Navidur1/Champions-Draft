@@ -1,5 +1,6 @@
 #build html based on pulled player data
 from classes import *
+from scrape import roles
 from bs4 import BeautifulSoup
 from bs4.formatter import *
 
@@ -140,7 +141,7 @@ def build_player_html(all_players:dict, week):
     file_html.write(soup_str)
     file_html.close()
 
-def build_matchup_html(schedule, all_players:dict, users:dict, week):
+def build_matchup_html(schedule, all_players:dict, week):
     file_name = "/tmp/matchups/week" + str(week) + ".html"
     file_html = open(file_name, "w+")
     total = 0
@@ -202,12 +203,13 @@ def build_matchup_html(schedule, all_players:dict, users:dict, week):
         total = 0
         
         
-        for role in user1.roles:
-            player_name = user1.roles[role]
+        for role in roles:
+            player_name = user1.teams[week][role]
             player = all_players[player_name]
             score = player.scores[week]
 
             if score == None:
+                continue
                 return ""
             
             text += "<tr><th>" + str(role) + "</th><th>" + str(player_name) + "</th><th>" + str(player.team) \
@@ -236,10 +238,14 @@ def build_matchup_html(schedule, all_players:dict, users:dict, week):
                     """
         total = 0
         
-        for role in user2.roles:
-            player_name = user2.roles[role]
+        for role in roles:
+            player_name = user2.teams[week][role]
             player = all_players[player_name]
             score = player.scores[week]
+            
+            if score == None:
+                continue
+
             text += "<tr><th>" + str(role) + "</th><th>" + str(player_name) + "</th><th>" + str(player.team) \
                 + "</th><th>" + str(score.kills) + "</th><th>" + str(score.deaths) + "</th><th>" + str(score.assists) \
                 + "</th><th>" + str(score.triples) + "</th><th>" + str(score.quadras) + "</th><th>" + str(score.pentas) \

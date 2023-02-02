@@ -1,4 +1,4 @@
-from scrape import all_players
+from scrape import all_players, users, cur_week
 from google.cloud import firestore
 from google.cloud import storage 
 
@@ -7,39 +7,28 @@ def init_database():
     return db
 
 def get_week(db):
-    get_week = db.collection(u'info').document(u'meta_data').get()
-    meta_data = get_week.to_dict()
-    return meta_data['week']
+    week_dict = db.collection('info').document('meta_data').get().to_dict()
+    return week_dict['week']
 
 #Store all players
 def write_data():
     db = init_database()
-    week = get_week(db)
-    print(week)
 
-    doc_ref = db.collection(u'all_players').document(str(week))
+    # for name in all_players:
+    #     doc_ref = db.collection('all_players').document(name)
+    #     player = all_players[name]
+    #     doc_ref.set(player.to_dict())
 
-    for p in all_players:
-        player = all_players[p]
-        score = player.scores[week]
-        player_doc = {
-            player.name:{
-                u'name':player.name,
-                u'role':u'ADC',
-                u'team':u'TSM',
-                u'score':{
-                    u'assists': score.assists,
-                    u'cs':score.cs,
-                    u'deaths':score.deaths,
-                    u'games':score.games,
-                    u'kills':score.kills,
-                    u'pentas':score.pentas,
-                    u'quadras':score.quadras,
-                    u'total':score.total,
-                    u'triples':score.triples
-                }
-            }
-        }
-        
-        doc_ref.set(player_doc)
-        break
+def read_data():
+    db = init_database()
+
+    cur_week = get_week(db)
+
+    # docs = db.collection('all_players').stream()
+    # for doc in docs:
+    #     all_players[doc.id] = doc.to_dict()
+
+    for user in users:
+        doc_ref = db.collection('users').document(user)
+        doc = doc_ref.get().to_dict()
+        users[user].teams = doc['teams']
