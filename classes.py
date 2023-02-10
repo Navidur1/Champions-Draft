@@ -48,7 +48,6 @@ class Matchups:
 		self.matches = [(users[u1], users[u2]), (users[u3], users[u4]), (users[u5], users[u6])]
 
 
-
 class User:
 	def __init__(self, name, top, jg, mid, adc, supp, bench):
 		self.name = name
@@ -62,12 +61,12 @@ class User:
 			"Bench": bench
 		}
 
-		self.schedule = [None] * 8
-		self.wins = 0
-		self.losses = 0
+		self.schedule = [None] * 7
+		self.wins = [0] * 7
+		self.losses = [0] * 7
 
-		self.points_for = 0
-		self.points_against = 0
+		self.points_for = [0] * 7
+		self.points_against = [0] * 7
 
 	# def to_dict(self):
 	# 	ret = {

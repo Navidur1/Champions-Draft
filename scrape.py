@@ -15,7 +15,7 @@ table = table[0].tbody.contents
 
 all_players = {}
 
-roles = ["Top", "JG", "Mid", "ADC", "Support"]
+roles = ["Top", "JG", "Mid", "ADC", "Support", "Bench"]
 users = {}
 users["Adam"] = User("Adam", "Summit", "Closer", "Maple", "Prince", "Zven", "Young")
 users["Alex"] = User("Alex", "Tenacity", "Inspired", "Bjergsen", "Berserker", "Busio", "Armut")
@@ -32,6 +32,12 @@ schedule.append(Matchups("Jack", "Jakir", "Jorel", "Adam", "Alex", "Navid", user
 schedule.append(Matchups("Jack", "Adam", "Jakir", "Navid", "Jorel", "Alex", users))
 schedule.append(Matchups("Navid", "Jack", "Adam", "Alex", "Jakir", "Jorel", users))
 schedule.append(Matchups("Jack", "Alex", "Navid", "Jorel", "Adam", "Jakir", users))
+
+for week in range(1, len(schedule)):
+    matchup = schedule[week]
+    for i in range(3):
+        matchup.matches[i][0].schedule[week] = matchup.matches[i][1]
+        matchup.matches[i][1].schedule[week] = matchup.matches[i][0]
 
 cur_week = ""
 
@@ -60,7 +66,7 @@ def run_scrape():
             if team1 == "100 Thieves":
                 team1 = "100T"
 
-            if team1 == "Team Liquid":
+            if team2 == "Team Liquid":
                 team2 = "TL"
             if team2 == "100 Thieves":
                 team2 = "100T"
@@ -122,4 +128,23 @@ def run_scrape():
                 s.games += 1
                 s.update()
 
+    for week in range(1, 4):
+        for user in users.values():
+            for role in roles:
+                player_name = user.teams[week][role]
+                score = all_players[player_name].scores[week]
+                
+                if score == None or role == "Bench":
+                    continue
+                
+                user.points_for[week] += score.total
 
+        for user in users.values():
+            user.points_against[week] = user.schedule[week].points_for[week]
+            user.wins[week] = user.wins[week - 1]
+            user.losses[week] = user.losses[week - 1]
+
+            if user.points_for[week] > user.points_against[week]:
+                user.wins[week] += 1
+            else:
+                user.losses[week] += 1

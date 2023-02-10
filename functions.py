@@ -1,6 +1,6 @@
 #build html based on pulled player data
 from classes import *
-from scrape import roles
+from scrape import roles, users
 from bs4 import BeautifulSoup
 from bs4.formatter import *
 
@@ -178,7 +178,31 @@ def build_matchup_html(schedule, all_players:dict, week):
                         <td><a href="../players/week6">Week 6</a></td>
                     </tr>
                 </table>
+                <h2>Standings</h2>
+                <table id="standings">
+                    <thead>
+                        <tr>
+                        <th></th>
+                        <th>Player</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                        <th>Points For</th>
+                        <th>Points Against</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+"""
+    place = 1
+    for user in sorted(users.values(), key=lambda x: (x.wins[week], x.points_for[week])):
+        text += "<tr><td>" + str(place) + "</td><td>" + user.name + "</td><td>" + str(user.wins[week]) + "</td><td>" + str(user.losses[week]) + \
+             "</td><td>" + str(round(sum(user.points_for[:week + 1]), 2)) + "</td><td>" + str(round(sum(user.points_against[:week + 1]), 2)) + "</td></tr>"
+
+        place += 1
+
+    text += """</tbody>
+            </table>
             </div>
+
             <div class="matchup-container">
 """
     for i in range(3):
@@ -210,7 +234,6 @@ def build_matchup_html(schedule, all_players:dict, week):
 
             if score == None:
                 continue
-                return ""
             
             text += "<tr><th>" + str(role) + "</th><th>" + str(player_name) + "</th><th>" + str(player.team) \
                 + "</th><th>" + str(score.kills) + "</th><th>" + str(score.deaths) + "</th><th>" + str(score.assists) \

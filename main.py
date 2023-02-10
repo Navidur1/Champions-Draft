@@ -13,12 +13,13 @@ if not os.path.exists("/tmp/players"):
 
 app = Flask(__name__, template_folder="/tmp")
 
+build_index()
+read_data()
+run_scrape()
+write_data()
+
 @app.route('/', methods=['POST', 'GET'])
 def hello():
-    build_index()
-    read_data()
-    run_scrape()
-    write_data()
     if request.method == "POST":
         run_scrape()
         write_data()
@@ -32,7 +33,7 @@ def display_players(week):
 
 @app.route('/matchups/week<int:week>')
 def display_matchups(week):
-    build_matchup_html(schedule ,all_players, week)
+    build_matchup_html(schedule, all_players, week)
     file_name = "matchups/week" + str(week) + ".html"
     return render_template(file_name)
   
